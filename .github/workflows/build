@@ -1,0 +1,35 @@
+name: Build Seed Apocalypse DLL
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Compile mod
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install .NET 6 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Build SeedApocalypse.dll
+        run: dotnet build SeedApocalypse.csproj --configuration Release --verbosity minimal
+
+      - name: Upload compiled DLL
+        uses: actions/upload-artifact@v4
+        with:
+          name: SeedApocalypse
+          path: bin/Release/net6.0/SeedApocalypse.dll
+          if-no-files-found: error
+          retention-days: 30
