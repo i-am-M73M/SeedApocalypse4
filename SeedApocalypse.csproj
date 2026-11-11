@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>SeedApocalypse</AssemblyName>
+    <RootNamespace>SeedApocalypse</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <DebugType>none</DebugType>
+    <!--
+      LibDir must contain the two folders you gave me, unzipped:
+        libs/net6/                 (from net6.zip)
+        libs/Il2CppAssemblies/     (from Il2CppAssemblies.zip)
+      Override on the command line if you keep them elsewhere:
+        dotnet build -c Release -p:LibDir=C:\path\to\libs\
+    -->
+    <LibDir Condition="'$(LibDir)' == ''">$(MSBuildProjectDirectory)/libs/</LibDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="$(LibDir)net6/MelonLoader.dll" Private="false" />
+    <Reference Include="$(LibDir)net6/0Harmony.dll" Private="false" />
+    <Reference Include="$(LibDir)net6/Il2CppInterop.Runtime.dll" Private="false" />
+    <Reference Include="$(LibDir)net6/Il2CppInterop.Common.dll" Private="false" />
+    <Reference Include="$(LibDir)Il2CppAssemblies/*.dll" Private="false" />
+  </ItemGroup>
+
+</Project>
